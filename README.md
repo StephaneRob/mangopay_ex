@@ -34,3 +34,38 @@ MangopayEx.Wallets.create(%{owners: ["USER_ID"], description: "Main wallet", cur
    currency: "EUR", description: "Main wallet", funds_type: "DEFAULT", id: "WALLET_ID",
    owners: ["USER_ID"], tag: nil}}
 ```
+
+## Implementation
+
+- [x] Users
+  - [x] Create natural user  `MangopayEx.Users.Natural.create(%{})`
+  - [x] Update natural user  `MangopayEx.Users.Natural.update(id, %{})`
+  - [x] Create legal user  `MangopayEx.Users.Legal.create(%{})`
+  - [x] Update legal user  `MangopayEx.Users.Legal.update(id, %{})`
+  - [x] View a user `MangopayEx.Users.view(id)`
+  - [x] List a user `MangopayEx.Users.list(id)`
+- [x] User emoney
+  - [x] view user emoney `MangopayEx.Users.Emoney.view(user_id)`
+- [x] Wallets
+  - [x] Create  `MangopayEx.Wallets.create(%{})`
+  - [x] View    `MangopayEx.Wallets.view(id)`
+  - [x] Update  `MangopayEx.Wallets.update(id, %{})`
+  - [x] List user wallets `MangopayEx.Users.Wallets.list(user_id)`
+- [ ] Payins
+- [x] Transfers
+  - [x] Create `MangopayEx.Transfers.create(%{})`
+  - [x] View `MangopayEx.Transfers.view(id)`
+- [x] Payouts
+  - [x] Create `MangopayEx.Payouts.create(%{})`
+  - [x] View `MangopayEx.Payouts.view(id)`
+- [ ] KYC Document
+- [ ] Hooks
+- [ ] Transactions
+  - [x] List user's Transactions `MangopayEx.Users.Transactions.list(user_id)`
+  - [x] List wallets's Transactions `MangopayEx.Wallets.Transactions.list(user_id)`
+  - [ ] List dispute's Transactions
+  - [ ] List Client's Transactions
+  - [ ] List Client wallet's Transactions
+- [ ] Bank Account
+  - [x] View a bank account `MangoPayEx.Users.Bankaccounts.view(user_id, id)`
+  - [x] List user bank accounts `MangoPayEx.Users.Bankaccounts.list(user_id)`
