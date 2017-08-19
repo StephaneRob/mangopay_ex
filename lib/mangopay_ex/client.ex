@@ -1,6 +1,4 @@
 defmodule MangopayEx.Client do
-  @client_id Application.fetch_env!(:mangopay_ex, :client_id)
-  @client_pass Application.fetch_env!(:mangopay_ex, :client_pass)
 
   def start_link do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
@@ -25,7 +23,7 @@ defmodule MangopayEx.Client do
   end
 
   def auth_token do
-    :base64.encode_to_string("#{@client_id}:#{@client_pass}")
+    :base64.encode_to_string("#{client_id()}:#{client_pass()}")
   end
 
   defp auth(state) do
@@ -41,4 +39,13 @@ defmodule MangopayEx.Client do
          state
      end
   end
+
+  defp client_id do
+    Application.fetch_env!(:mangopay_ex, :client_id)
+  end
+
+  defp client_pass do
+    Application.fetch_env!(:mangopay_ex, :client_pass)
+  end
+
 end

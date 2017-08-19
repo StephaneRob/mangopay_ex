@@ -1,8 +1,15 @@
 defmodule MangopayEx.Api do
-  @api_base Application.fetch_env!(:mangopay_ex, :api_base)
-  @client_id Application.fetch_env!(:mangopay_ex, :client_id)
+
   @auth_endpoint "oauth/token"
   use HTTPoison.Base
+
+  def api_base do
+    Application.fetch_env!(:mangopay_ex, :api_base)
+  end
+
+  def client_id do
+    Application.fetch_env!(:mangopay_ex, :client_id)
+  end
 
   def auth do
     {_, resp} = post(auth_url(),
@@ -12,7 +19,7 @@ defmodule MangopayEx.Api do
   end
 
   defp auth_url do
-    "#{@api_base}/#{@auth_endpoint}/"
+    "#{api_base()}/#{@auth_endpoint}/"
   end
 
   def list(module, id \\ nil, action \\ nil) do
@@ -30,8 +37,8 @@ defmodule MangopayEx.Api do
     resp |> decode_json()
   end
 
-  def update(module, id, data) do
-    {_, resp} = put(build_url(module, id), encode_json(data), auth_header())
+  def update(module, id, data, action \\ nil) do
+    {_, resp} = put(build_url(module, id, action), encode_json(data), auth_header())
     resp |> decode_json()
   end
 
@@ -39,15 +46,17 @@ defmodule MangopayEx.Api do
     apply(__MODULE__, method, [module, id, action])
   end
   def member(module, :create, id, action, data), do: create(module, data, id, action)
+  def member(module, :update, id, action, data), do: update(module, id, data, action)
 
   def build_url(module, id \\ nil, member_action \\ nil) do
-    url = "#{@api_base}/#{@client_id}/#{module.endpoint}"
+    url = "#{api_base()}/#{client_id()}/#{module.endpoint}"
     if id do
       url = url <> "/#{id}"
     end
     if member_action do
       url = url <> "/#{member_action}"
     end
+    IO.puts url
     url
   end
 
@@ -80,6 +89,7 @@ defmodule MangopayEx.Api do
   end
 
   def decode_json(resp_map) do
+    IO.inspect resp_map
     case resp_map.status_code do
       200 ->
         snake_case = Poison.decode!(resp_map.body) |> snake_case_map

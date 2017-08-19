@@ -24,6 +24,8 @@ config :mangopay_ex,
   client_pass: System.get_env("MANGOPAY_CLIENT_PASS")
 ```
 
+For security reason, use environment variables rather than hard coding your account credentials.
+
 ## Usage
 
 ```elixir
@@ -58,7 +60,13 @@ MangopayEx.Wallets.create(%{owners: ["USER_ID"], description: "Main wallet", cur
 - [x] Payouts
   - [x] Create `MangopayEx.Payouts.create(%{})`
   - [x] View `MangopayEx.Payouts.view(id)`
-- [ ] KYC Document
+- [x] KYC Document
+  - [x] View `MangopayEx.KycDocuments.view(id)`
+  - [x] list `MangopayEx.KycDocuments.list`
+  - [x] Create a kyc document for a user `MangopayEx.Users.KycDocuments.create(user_id, %{})`
+  - [x] Create a kyc page for a user `MangopayEx.Users.KycDocuments.create(:page, user_id, document_id, %{})`
+  - [x] Submit a kyc `MangopayEx.Users.KycDocuments.list(user_id, document_id, %{})`
+  - [x] List kyc for a user `MangopayEx.Users.KycDocuments.list(user_id)`
 - [ ] Hooks
 - [ ] Transactions
   - [x] List user's Transactions `MangopayEx.Users.Transactions.list(user_id)`
