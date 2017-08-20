@@ -1,4 +1,4 @@
-# MangopayEx
+# MangopayEx (WIP)
 
 Elixir package for interacting with the version 2 of the Mangopay API.
 
